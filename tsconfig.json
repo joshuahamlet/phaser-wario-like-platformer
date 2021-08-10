@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"target": "es2016",
+		"module": "es6",
+		"strict": true,
+		"noImplicitAny": false,
+		"noEmit": true,
+		"allowJs": true,
+		"jsx": "react-jsx",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"baseUrl": "./src",
+		"paths": {
+		  "~/*": ["./*"],
+			"*.ts": ["*"]
+		},
+		"typeRoots": [
+			"node_modules/@types",
+			"node_module/phaser/types",
+		],
+		"types": [
+			"phaser"
+		]
+	},
+	"include": [
+		"src/**/*"
+	]
+}
