@@ -7,6 +7,10 @@
 
 * * *
 
+![game footage](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/readme/WarioLike.gif)
+
+![game stillshot](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/readme/WarioLike.png)
+
 This project used Ourcade's TS-Parcel template [phaser3-typescript-parcel-template](https://github.com/ourcade/phaser3-typescript-parcel-template).
 
 Start development server:
