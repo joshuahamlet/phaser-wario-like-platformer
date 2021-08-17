@@ -6,10 +6,10 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 * * *
+![game stillshot](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/readme/WarioLike.png)
 
 ![game footage](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/readme/WarioLike.gif)
 
-![game stillshot](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/readme/WarioLike.png)
 
 This project used Ourcade's TS-Parcel template [phaser3-typescript-parcel-template](https://github.com/ourcade/phaser3-typescript-parcel-template).
 
@@ -29,4 +29,4 @@ Production files will be placed in the `dist` folder. Then upload those files to
 
 ## License
 
-[MIT License](https://github.com/ourcade/phaser3-typescript-parcel-template/blob/master/LICENSE)
+[MIT License](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/LICENSE)
