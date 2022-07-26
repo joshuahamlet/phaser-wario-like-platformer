@@ -24,8 +24,8 @@ const mobileControls : CSS.Properties = {
   height: "100px"
 }
 
-var ua = navigator.userAgent;
-var isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua)
+const ua = navigator.userAgent;
+const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua)
 if(isMobile){
   console.log("it's mobile alright")
 }
@@ -37,42 +37,18 @@ const Bottom: React.FC = () => {
   const [_mobileControlss, setMobileControls] = useAtom(mobileControlsAtom)
   
   //  mobile workarounds  //
-  const doJump = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doJump()
-  }
-  const stopJump = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopJump()
-  }
-  const doDash = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDash()
-  }
-  const stopDash = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDash()
-  }
-  const doUp = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doUp()
-  }
-  const stopUp = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopUp()
-  }
-  const doDown = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDown()
-  }
-  const stopDown = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDown()
-  }
-  const doLeft = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doLeft()
-  }
-  const stopLeft = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopLeft()
-  }
-  const doRight = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doRight()
-  }
-  const stopRight = () => {
-    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopRight()
-  }
+  const doJump = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doJump()
+  const stopJump = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopJump()
+  const doDash = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDash()
+  const stopDash = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDash()
+  const doUp = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doUp()
+  const stopUp = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopUp()
+  const doDown = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDown()
+  const stopDown = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDown()
+  const doLeft = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doLeft()
+  const stopLeft = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopLeft()
+  const doRight = () =>  thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doRight()
+  const stopRight = () =>  thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopRight()
   //////////////////////////
 
   const [tipText, setTipText] = useAtom(tipTextAtom)
@@ -132,12 +108,12 @@ const Bottom: React.FC = () => {
          <div onContextMenu={(e)=> e.preventDefault()} style={{width: "100%", height: "100%"}}>
           
           <div onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", flexDirection: "column", justifyContent: 'space-between', width: "39vw", height: "39vw", alignItems: "center"}}>
-            <div  onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doUp} onTouchEnd={stopUp}></div>
+            <div  onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doUp} onTouchEnd={stopUp} onDragEnter={doUp} onDragExit={stopUp}></div>
             <div onContextMenu={(e)=> e.preventDefault()} style={{display: 'flex', justifyContent: 'space-between', width: "100%"}}>
-              <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doLeft} onTouchEnd={stopLeft}></div>
-              <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doRight} onTouchEnd={stopRight}></div>
+              <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doLeft} onTouchEnd={stopLeft} onDragEnter={doLeft} onDragExit={stopLeft}></div>
+              <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doRight} onTouchEnd={stopRight} onTouchMove={doRight} onTouchCancel={stopRight}></div>
             </div>
-            <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doDown} onTouchEnd={stopDown}></div>
+            <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doDown} onTouchEnd={stopDown} onDragEnter={doDown} onDragExit={stopDown}></div>
           </div>
          </div>
 

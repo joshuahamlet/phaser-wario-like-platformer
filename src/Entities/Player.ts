@@ -22,6 +22,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   public mobileDown: boolean
   public mobileLeft: boolean
   public mobileRight: boolean
+  public mobileLeftHold: boolean
+  public mobileRightHold: boolean
   //////////////////////////
 
   public buttStomp: boolean
@@ -79,6 +81,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.mobileDown = false
     this.mobileLeft = false
     this.mobileRight = false
+    this.mobileLeftHold = false
+    this.mobileRightHold = false
     //////////////////////////
     
     this.buttStomp = false
@@ -113,10 +117,22 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.stopUp = () => this.mobileUp = false
     this.doDown = () => this.mobileDown = true
     this.stopDown = () => this.mobileDown = false
-    this.doLeft = () => this.mobileLeft = true
-    this.stopLeft = () => this.mobileLeft = false
-    this.doRight = () => this.mobileRight = true
-    this.stopRight = () => this.mobileRight = false
+    this.doLeft = () => {
+      this.mobileLeft = true
+      this.mobileLeftHold = true
+    } 
+    this.stopLeft = () => {
+      this.mobileLeft = false
+      this.mobileLeftHold = false
+    } 
+    this.doRight = () => {
+      this.mobileRight = true
+      this.mobileRightHold = true
+    } 
+    this.stopRight = () => {
+      this.mobileRight = false
+      this.mobileRightHold = false
+    } 
     //////////////////////////
 
   }
@@ -376,7 +392,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     ///////////////////////////////////////////////////////
 
     //######## WALLJUMP ####################################
-    if (!this.dashLock && !onFloor && this.body.blocked.right && right.isDown && this.holdSlideRight && right.isDown) {
+    if (!this.dashLock && !onFloor && this.body.blocked.right && (right.isDown || this.mobileRightHold) && (this.holdSlideRight || this.mobileRightHold)) {
       this.holdSlideLeft = true
       this.wallJumpLeft = false
       this.body.offset.x = 8
@@ -390,7 +406,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }  
     }  
     
-    if (!this.dashLock && !onFloor && this.body.blocked.left && left.isDown && this.holdSlideLeft && left.isDown) {
+    if (!this.dashLock && !onFloor && this.body.blocked.left && (left.isDown || this.mobileLeftHold) && (this.holdSlideLeft || this.mobileLeftHold)) {
       this.holdSlideRight = true
       this.wallJumpRight = false
       this.body.offset.x = 0

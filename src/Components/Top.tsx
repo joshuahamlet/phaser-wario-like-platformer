@@ -17,6 +17,7 @@ const TopStyle: CSS.Properties = {
   alignItems: 'center',
   justifyContent: 'center',
   fontSize: '35px',
+  marginTop: '10vw'
 } 
 
 const ImgStyle: CSS.Properties = {
