@@ -21,7 +21,7 @@ const App: React.FC = () => {
     <div style={appStyle}>
       <Top/>
       <PhaserCanvas/>
-      <Bottom></Bottom>
+      <Bottom/>
     </div>
     </Provider>
   )

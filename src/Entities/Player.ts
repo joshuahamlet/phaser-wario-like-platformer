@@ -2,6 +2,28 @@ import Phaser from 'phaser'
 import initAnimations from './playerAnims'
 
 class Player extends Phaser.Physics.Arcade.Sprite {
+
+  //  mobile workarounds  //
+  public doJump: Function
+  public stopJump: Function
+  public doDash: Function
+  public stopDash: Function
+  public doUp: Function
+  public stopUp: Function
+  public doDown: Function
+  public stopDown: Function
+  public doRight: Function
+  public stopRight: Function
+  public doLeft: Function
+  public stopLeft: Function
+  public mobileJump: boolean
+  public mobileDash: boolean
+  public mobileUp: boolean
+  public mobileDown: boolean
+  public mobileLeft: boolean
+  public mobileRight: boolean
+  //////////////////////////
+
   public buttStomp: boolean
   public treasureCount: number
   public gravity: number
@@ -50,6 +72,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.doorWallJump = new Event('doorWallJump')
     this.treasureFound = new Event('treasureFound')
 
+    //  mobile workarounds  //
+    this.mobileJump = false
+    this.mobileDash = false
+    this.mobileUp = false
+    this.mobileDown = false
+    this.mobileLeft = false
+    this.mobileRight = false
+    //////////////////////////
+    
     this.buttStomp = false
     this.treasureCount = 0
     this.gravity = 500
@@ -72,7 +103,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.cursors = this.scene.input.keyboard.createCursorKeys()
     this.init(scene)
     this.initEvents()
+    
+    //  mobile workarounds  //
+    this.doJump = () => this.mobileJump = true
+    this.stopJump = () => this.mobileJump = false 
+    this.doDash = () => this.mobileDash = true
+    this.stopDash = () => this.mobileDash = false
+    this.doUp = () => this.mobileUp = true
+    this.stopUp = () => this.mobileUp = false
+    this.doDown = () => this.mobileDown = true
+    this.stopDown = () => this.mobileDown = false
+    this.doLeft = () => this.mobileLeft = true
+    this.stopLeft = () => this.mobileLeft = false
+    this.doRight = () => this.mobileRight = true
+    this.stopRight = () => this.mobileRight = false
+    //////////////////////////
+
   }
+
+  
 
   init(scene: Phaser.Scene) {
     const body = this.body as Phaser.Physics.Arcade.Body
@@ -129,10 +178,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     // }
 
     const { left, right, up, space, shift, down } = this.cursors
-    const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space)
-    const isShiftJustDown = Phaser.Input.Keyboard.JustDown(shift)
-    const isDownJustDown = Phaser.Input.Keyboard.JustDown(down)
-    const isUpJustDown = Phaser.Input.Keyboard.JustDown(up)
+    const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space) || this.mobileJump
+    const isShiftJustDown = Phaser.Input.Keyboard.JustDown(shift) || this.mobileDash
+    const isDownJustDown = Phaser.Input.Keyboard.JustDown(down) || this.mobileDown
+    const isUpJustDown = Phaser.Input.Keyboard.JustDown(up) || this.mobileUp
     const onFloor = body.onFloor() ////////////////////////////////////////////CHECK
 
     //######## HIT TESTS ########################################
@@ -285,12 +334,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this.walkSpeedMax = 200
     }
 
-    if (left.isDown) {
+    if (left.isDown || this.mobileLeft) {
       if (this.walkSpeed >= -this.walkSpeedMax) {
         this.walkSpeed = this.walkSpeed -(this.walkAccel*2)
       }
       this.setFlipX(true)
-    } else if (right.isDown) {
+    } else if (right.isDown || this.mobileRight) {
       if (this.walkSpeed <= this.walkSpeedMax) {
         this.walkSpeed = this.walkSpeed + (this.walkAccel*2)
       }
@@ -466,7 +515,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this.play('idle', true)
     }
 
+    this.mobileJump = false
+    this.mobileDash = false
+    this.mobileUp = false
+    this.mobileDown = false
+    //this.mobileLeft = false
+    //this.mobileRight = false
   }
+
 }
 
 export default Player  
