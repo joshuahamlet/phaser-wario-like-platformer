@@ -15,7 +15,8 @@ const appStyle: CSS.Properties = {
   justifyContent: isMobile? 'flex-start' : 'center',
   height: '100%', 
   width: '100%',
-  background: 'linear-gradient(to right, #221749 0%, #36254e 25%, #36254e 75%, #221749 100%)'
+  background: 'linear-gradient(to right, #221749 0%, #36254e 25%, #36254e 75%, #221749 100%)',
+  touchAction: 'manipulation'
 }
 
 const App: React.FC = () => {

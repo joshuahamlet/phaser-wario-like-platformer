@@ -123,8 +123,8 @@ const Bottom: React.FC = () => {
               B
             </div>
           </div>
-          <div onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", alignItems: "center", justifyContent: "Center", backgroundColor: "black", width: "15vw", height: "15vw", alignSelf: "flex-end", borderRadius: "100px", textAlign: "center"}} onTouchStart={doJump} onTouchEnd={stopJump}>
-            <div style={{fontSize: "5vw", color: "white"}}>
+          <div onDoubleClick={e => e.preventDefault()} onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", alignItems: "center", justifyContent: "Center", backgroundColor: "black", width: "15vw", height: "15vw", alignSelf: "flex-end", borderRadius: "100px", textAlign: "center"}} onTouchStart={doJump} onTouchEnd={stopJump}>
+            <div onDoubleClick={e => e.preventDefault()} style={{fontSize: "5vw", color: "white"}}>
               A
             </div>
           </div>
