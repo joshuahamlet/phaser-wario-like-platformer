@@ -12,7 +12,7 @@ const appStyle: CSS.Properties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: isMobile? 'flex-start' : 'center',
+  justifyContent: isMobile? 'flex-start' : 'flex-start',
   height: '100%', 
   width: '100%',
   background: 'linear-gradient(to right, #221749 0%, #36254e 25%, #36254e 75%, #221749 100%)',

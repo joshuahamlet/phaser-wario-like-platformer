@@ -4,6 +4,7 @@ import { mobileControlsAtom, tipTextAtom } from '../Atoms'
 import CSS from 'csstype'
 import thegame from "../main"
 import { Display } from 'phaser'
+import EndGame from '~/Scenes/EndGame'
 
 const bottomStyle: CSS.Properties = {
   color: 'white',
@@ -37,7 +38,16 @@ const Bottom: React.FC = () => {
   const [_mobileControlss, setMobileControls] = useAtom(mobileControlsAtom)
   
   //  mobile workarounds  //
-  const doJump = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doJump()
+  const doJump = () => {
+    if (thegame.scene.isActive("PlayScene")) {
+      thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doJump()
+   }
+    //console.log(thegame.scene.isActive("EndGame"))
+    //console.log(thegame.scene.isActive("PlayScene"))
+    if (thegame.scene.isActive("EndGame")) {
+      thegame.scene.keys.EndGame.doRestart()
+   }
+  } 
   const stopJump = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopJump()
   const doDash = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDash()
   const stopDash = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDash()

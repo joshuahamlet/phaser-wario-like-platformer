@@ -5,6 +5,8 @@ import skull from '../Assets/skull.png'
 import crownIcon from '../Assets/crownIcon.png'
 import CSS from 'csstype'
 
+const ua = navigator.userAgent;
+const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua)
 
 const TopStyle: CSS.Properties = {
   color: 'white',
@@ -17,7 +19,7 @@ const TopStyle: CSS.Properties = {
   alignItems: 'center',
   justifyContent: 'center',
   fontSize: '35px',
-  marginTop: '10vw'
+  marginTop: isMobile? '10vw' :'1vw'
 } 
 
 const ImgStyle: CSS.Properties = {

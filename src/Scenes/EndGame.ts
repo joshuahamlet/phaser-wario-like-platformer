@@ -7,8 +7,16 @@ class EndGame extends Phaser.Scene {
   private clearIcons: Event
   private restart: Event
 
+  //  mobile workarounds  //
+  public doRestart: Function
+  //////////////////////////
+
   constructor() {
     super('EndGame')
+    
+    //  mobile workarounds  //
+    this.doRestart = () => this.scene.start('PlayScene')
+    //////////////////////////
     
     this.clearIcons = new Event('clearIcons')
     this.restart = new Event('restart')
