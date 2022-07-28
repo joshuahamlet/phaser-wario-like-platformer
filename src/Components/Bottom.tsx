@@ -34,8 +34,6 @@ const Bottom: React.FC = () => {
 
   const [_mobileControlss, setMobileControls] = useAtom(mobileControlsAtom)
 
-  const aRef = useRef()
-  const bRef = useRef()
   const upRef = useRef()
   const downRef = useRef()
   const leftRef = useRef()
