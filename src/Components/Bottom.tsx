@@ -33,6 +33,13 @@ const directionKey = isMobile ? "D-Pad" : "Arrow Keys"
 const Bottom: React.FC = () => {
 
   const [_mobileControlss, setMobileControls] = useAtom(mobileControlsAtom)
+
+  const aRef = useRef()
+  const bRef = useRef()
+  const upRef = useRef()
+  const downRef = useRef()
+  const leftRef = useRef()
+  const rightRef = useRef()
   
   //  mobile workarounds  //
   const doJump = () => {
@@ -51,11 +58,79 @@ const Bottom: React.FC = () => {
   const stopUp = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopUp()
   const doDown = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDown()
   const stopDown = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDown()
-  const doLeft = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doLeft()
-  const stopLeft = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopLeft()
-  const doRight = () =>  thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doRight()
-  const stopRight = () =>  thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopRight()
+  const doLeft = (ev) => {
+    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doLeft()
+  }
+  const stopLeft = (ev) => {
+    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopLeft()
+  }
+  const doRight = (ev) => {
+    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doRight()
+  } 
+  const stopRight = (ev) => {
+    thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopRight()
+  } 
   //////////////////////////
+  const dpadTouch = (ev) => {
+    const leftCondition = (
+      (ev.changedTouches[0].clientX > leftRef.current.offsetLeft) && (ev.changedTouches[0].clientX < leftRef.current.offsetLeft + leftRef.current.offsetWidth) &&
+      (ev.changedTouches[0].clientY > leftRef.current.offsetTop) && (ev.changedTouches[0].clientY < leftRef.current.offsetTop + leftRef.current.offsetHeight)
+    )
+    const rightCondition = (
+      (ev.changedTouches[0].clientX > rightRef.current.offsetLeft) && (ev.changedTouches[0].clientX < rightRef.current.offsetLeft + rightRef.current.offsetWidth) &&
+      (ev.changedTouches[0].clientY > rightRef.current.offsetTop) && (ev.changedTouches[0].clientY < rightRef.current.offsetTop + rightRef.current.offsetHeight)
+    )
+    const upCondition = (
+      (ev.changedTouches[0].clientX > upRef.current.offsetLeft) && (ev.changedTouches[0].clientX < upRef.current.offsetLeft + upRef.current.offsetWidth) &&
+      (ev.changedTouches[0].clientY > upRef.current.offsetTop) && (ev.changedTouches[0].clientY < upRef.current.offsetTop + upRef.current.offsetHeight)
+    )
+    const downCondition = (
+      (ev.changedTouches[0].clientX > downRef.current.offsetLeft) && (ev.changedTouches[0].clientX < downRef.current.offsetLeft + downRef.current.offsetWidth) &&
+      (ev.changedTouches[0].clientY > downRef.current.offsetTop) && (ev.changedTouches[0].clientY < downRef.current.offsetTop + downRef.current.offsetHeight)
+    )
+    
+    if (leftCondition){
+      doLeft()
+      stopRight()
+      stopDown()
+      stopUp()
+    }
+    
+    if (rightCondition){
+      stopLeft()
+      doRight()
+      stopDown()
+      stopUp()
+    }
+
+    if (upCondition){
+      stopLeft()
+      stopRight()
+      stopDown()
+      doUp()
+    }
+    
+    if (downCondition){
+      stopLeft()
+      stopRight()
+      doDown()
+      stopUp()
+    }
+
+    if (!upCondition && !downCondition && !leftCondition && !rightCondition) {
+      stopLeft()
+      stopRight()
+      stopDown()
+      stopUp()
+    } 
+  }
+
+  const dpadRelease = () => {
+    stopLeft()
+    stopRight()
+    stopDown()
+    stopUp()
+  }
 
   const [tipText, setTipText] = useAtom(tipTextAtom)
 
@@ -113,13 +188,13 @@ const Bottom: React.FC = () => {
       <div onContextMenu={(e)=> e.preventDefault()} style={{paddingTop: "10vw", display: "flex", justifyContent: 'space-between', width: "90%", height: "30vw", alignItems: "center"}}>
          <div onContextMenu={(e)=> e.preventDefault()} style={{width: "100%", height: "100%"}}>
           
-          <div onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", flexDirection: "column", justifyContent: 'space-between', width: "39vw", height: "39vw", alignItems: "center"}}>
-            <div  onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doUp} onTouchEnd={stopUp} onDragEnter={doUp} onDragExit={stopUp}></div>
+          <div onTouchMove={dpadTouch} onTouchEnd={dpadRelease} onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", flexDirection: "column", justifyContent: 'space-between', width: "39vw", height: "39vw", alignItems: "center"}}>
+            <div ref={upRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doUp} onTouchEnd={stopUp}></div>
             <div onContextMenu={(e)=> e.preventDefault()} style={{display: 'flex', justifyContent: 'space-between', width: "100%"}}>
-              <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doLeft} onTouchEnd={stopLeft} onDragEnter={doLeft} onDragExit={stopLeft}></div>
-              <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doRight} onTouchEnd={stopRight} onTouchMove={doRight} onTouchCancel={stopRight}></div>
+              <div ref={leftRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doLeft} onTouchEnd={stopLeft}></div>
+              <div ref={rightRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doRight} onTouchEnd={stopRight}></div>
             </div>
-            <div onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doDown} onTouchEnd={stopDown} onDragEnter={doDown} onDragExit={stopDown}></div>
+            <div ref={downRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doDown}></div>
           </div>
          </div>
 
