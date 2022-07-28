@@ -3,8 +3,6 @@ import { useAtom } from 'jotai'
 import { mobileControlsAtom, tipTextAtom } from '../Atoms'
 import CSS from 'csstype'
 import thegame from "../main"
-import { Display } from 'phaser'
-import EndGame from '~/Scenes/EndGame'
 
 const bottomStyle: CSS.Properties = {
   color: 'white',
@@ -27,11 +25,10 @@ const mobileControls : CSS.Properties = {
 
 const ua = navigator.userAgent;
 const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua)
-if(isMobile){
-  console.log("it's mobile alright")
-}
 
-
+const jumpKey = isMobile ? "A" : "Space"
+const dashKey = isMobile ? "B" : "Shift"
+const directionKey = isMobile ? "D-Pad" : "Arrow Keys"
 
 const Bottom: React.FC = () => {
 
@@ -42,12 +39,11 @@ const Bottom: React.FC = () => {
     if (thegame.scene.isActive("PlayScene")) {
       thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doJump()
    }
-    //console.log(thegame.scene.isActive("EndGame"))
-    //console.log(thegame.scene.isActive("PlayScene"))
     if (thegame.scene.isActive("EndGame")) {
       thegame.scene.keys.EndGame.doRestart()
    }
   } 
+
   const stopJump = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopJump()
   const doDash = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.doDash()
   const stopDash = () => thegame.scene.keys.PlayScene.physics.world.bodies.entries[0].gameObject.stopDash()
@@ -63,15 +59,15 @@ const Bottom: React.FC = () => {
 
   const [tipText, setTipText] = useAtom(tipTextAtom)
 
-  const softGround = `The ground looks soft here. Try Stomping with Jump(Space) + Down`
-  const letsBegin = `Alright, let's get this quest on the road (use the arrow keys to move, Space to Jump, and Shift to Dash).`
-  const treasureFound = 'Jackpot! Grab that treasure! (Press shift to Dash)'
-  const restart = 'Good job! Press Space to restart.'
-  const doorWallJump = 'Press Up to enter doors. Jump(Space) and hold Left or Right against a wall to Slide. Press Jump(Space) while Sliding to WallJump.'
-  const clear = ''
-  const dash = `These walls are no match for your Dash(Shift).`
+  const softGround = `The ground looks soft here. Try Stomping with Jump(${jumpKey}) + Down`
+  const letsBegin = `Alright, let's get this quest on the road (use the ${directionKey} to move, ${jumpKey} to Jump, and ${dashKey} to Dash).`
+  const treasureFound = `Jackpot! Grab that treasure! (Press ${dashKey} to Dash)`
+  const restart = `Good job! Press ${jumpKey} to restart.`
+  const doorWallJump = `Press Up to enter doors. Jump(${jumpKey}) and hold Left or Right against a wall to Slide. Press Jump(${jumpKey}) while Sliding to WallJump.`
+  const clear = ``
+  const dash = `These walls are no match for your Dash(${dashKey}).`
   const leap = `Sometimes an epic quest requires a leap of faith!`
-  const wallJump = `Jump(Space) and hold Left or Right against a wall to Slide. Press Jump(Space) while Sliding to WallJump.`
+  const wallJump = `Jump(${jumpKey}) and hold Left or Right against a wall to Slide. Press Jump(${jumpKey}) while Sliding to WallJump.`
   const door = `Press Up to enter doors.`
 
   const handleTip = (tip) => {
