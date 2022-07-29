@@ -23,6 +23,33 @@ const mobileControls : CSS.Properties = {
   height: "100px"
 }
 
+const dpadStyle : CSS.Properties = {
+  borderRadius: "15px", 
+  backgroundColor: "black", 
+  width: "13vw", 
+  height: "13vw"
+}
+
+const buttonStyle : CSS.Properties = {
+  display: "flex", 
+  alignItems: "center", 
+  justifyContent: "Center", 
+  backgroundColor: "black", 
+  width: "15vw", 
+  height: "15vw", 
+  borderRadius: "100px", 
+  textAlign: "center", 
+}
+
+const dpadContainerStyle : CSS.Properties = {
+  display: "flex", 
+  flexDirection: "column", 
+  justifyContent: 'space-between', 
+  width: "39vw", 
+  height: "39vw", 
+  alignItems: "center"
+}
+
 const ua = navigator.userAgent;
 const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua)
 
@@ -183,27 +210,78 @@ const Bottom: React.FC = () => {
       </div>
     </div>
     {isMobile &&
-      <div onContextMenu={(e)=> e.preventDefault()} style={{paddingTop: "10vw", display: "flex", justifyContent: 'space-between', width: "90%", height: "30vw", alignItems: "center"}}>
-         <div onContextMenu={(e)=> e.preventDefault()} style={{width: "100%", height: "100%"}}>
+      <div 
+        onContextMenu={(e)=> e.preventDefault()} 
+        style={{paddingTop: "10vw", display: "flex", justifyContent: 'space-between', width: "90%", height: "30vw", alignItems: "center"}}
+      >
+        <div 
+          onContextMenu={(e)=> e.preventDefault()} 
+          style={{width: "100%", height: "100%"}}
+        >
           
-          <div onTouchMove={dpadTouch} onTouchEnd={dpadRelease} onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", flexDirection: "column", justifyContent: 'space-between', width: "39vw", height: "39vw", alignItems: "center"}}>
-            <div ref={upRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doUp} onTouchEnd={stopUp}></div>
-            <div onContextMenu={(e)=> e.preventDefault()} style={{display: 'flex', justifyContent: 'space-between', width: "100%"}}>
-              <div ref={leftRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doLeft} onTouchEnd={stopLeft}></div>
-              <div ref={rightRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doRight} onTouchEnd={stopRight}></div>
+          <div 
+            onTouchMove={dpadTouch} 
+            onTouchEnd={dpadRelease} 
+            onContextMenu={(e)=> e.preventDefault()} 
+            style={dpadContainerStyle}
+          >
+            <div 
+              ref={upRef} 
+              onContextMenu={(e)=> e.preventDefault()} 
+              style={dpadStyle} 
+              onTouchStart={doUp} 
+              onTouchEnd={stopUp}
+            />
+            <div 
+              onContextMenu={(e)=> e.preventDefault()} 
+              style={{display: 'flex', justifyContent: 'space-between', width: "100%"}}
+            >
+              <div 
+                ref={leftRef} 
+                onContextMenu={(e)=> e.preventDefault()} 
+                style={dpadStyle} 
+                onTouchStart={doLeft} 
+                onTouchEnd={stopLeft}
+              />
+              <div 
+                ref={rightRef} 
+                onContextMenu={(e)=> e.preventDefault()} 
+                style={dpadStyle} 
+                onTouchStart={doRight} 
+                onTouchEnd={stopRight}
+              />
             </div>
-            <div ref={downRef} onContextMenu={(e)=> e.preventDefault()} style={{borderRadius: "15px", backgroundColor: "black", width: "13vw", height: "13vw"}} onTouchStart={doDown}></div>
+            <div 
+              ref={downRef} 
+              onContextMenu={(e)=> e.preventDefault()} 
+              style={dpadStyle} 
+              onTouchStart={doDown} 
+              onTouchEnd={stopDown}
+            />
           </div>
          </div>
 
-         <div onContextMenu={(e)=> e.preventDefault()} style={{width: "100%", height: "10vw", display: "flex", justifyContent: 'space-around'}}>
-          <div onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", alignItems: "center", justifyContent: "Center", backgroundColor: "black", width: "15vw", height: "15vw", alignSelf: "flex-start", borderRadius: "100px", textAlign: "center"}} onTouchStart={doDash} onTouchEnd={stopDash}>
+        <div 
+          onContextMenu={(e)=> e.preventDefault()} 
+          style={{width: "100%", height: "10vw", display: "flex", justifyContent: 'space-around'}}
+        >
+          <div 
+            onContextMenu={(e)=> e.preventDefault()} 
+            style={{...buttonStyle, alignSelf: "flex-start"}} 
+            onTouchStart={doDash} 
+            onTouchEnd={stopDash}
+          >
             <div style={{fontSize: "5vw", color: "white"}}>
               B
             </div>
           </div>
-          <div onDoubleClick={e => e.preventDefault()} onContextMenu={(e)=> e.preventDefault()} style={{display: "flex", alignItems: "center", justifyContent: "Center", backgroundColor: "black", width: "15vw", height: "15vw", alignSelf: "flex-end", borderRadius: "100px", textAlign: "center"}} onTouchStart={doJump} onTouchEnd={stopJump}>
-            <div onDoubleClick={e => e.preventDefault()} style={{fontSize: "5vw", color: "white"}}>
+          <div 
+            onContextMenu={(e)=> e.preventDefault()} 
+            style={{...buttonStyle, alignSelf: "flex-end"}} 
+            onTouchStart={doJump} 
+            onTouchEnd={stopJump}
+          >
+            <div style={{fontSize: "5vw", color: "white"}}>
               A
             </div>
           </div>
