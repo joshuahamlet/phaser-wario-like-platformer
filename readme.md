@@ -1,7 +1,9 @@
 # WarioLand Inspired 2D Platformer
 ### Phaser, Typescript, React, Jotai
 
-> A Phaser project utilizing React and Jotai for HUD and UI elements
+<i> 
+A Phaser project utilizing React and Jotai for HUD and UI elements 
+</i>
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
