@@ -5,7 +5,6 @@
 A Phaser project utilizing React and Jotai for HUD and UI elements 
 </i>
 
-![License](https://img.shields.io/badge/license-MIT-green)
 
 * * *
 ![game stillshot](https://github.com/joshuahamlet/phaser-wario-like-platformer/blob/main/readme/WarioLike.png)
